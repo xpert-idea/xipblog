@@ -1,0 +1,2 @@
+# xipblog
+Prestashop Blog Module
