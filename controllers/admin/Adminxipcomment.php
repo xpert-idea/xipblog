@@ -54,6 +54,8 @@ class AdminxipcommentController extends ModuleAdminController {
     }
     public function renderList()
     {
+        // $this->addRowAction('edit');
+        // $this->addRowAction('delete');
         return parent::renderList();
     }
 }

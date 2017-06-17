@@ -17,32 +17,32 @@ class AdminxippostController extends ModuleAdminController {
             parent::__construct();
         $this->fields_list = array(
             'id_xipposts' => array(
-                    'title' => $this->l('Id' ),
+                    'title' => $this->l('Id'),
                     'width' => 100,
                     'type' => 'text',
             ),
             'post_title' => array(
-                    'title' => $this->l('Post Title' ),
+                    'title' => $this->l('Post Title'),
                     'width' => 60,
                     'type' => 'text',
             ),
             'post_excerpt' => array(
-                    'title' => $this->l('Excerpt' ),
+                    'title' => $this->l('Excerpt'),
                     'width' => 220,
                     'type' => 'text',
             ),
             'link_rewrite' => array(
-                    'title' => $this->l('URL Rewrite' ),
+                    'title' => $this->l('URL Rewrite'),
                     'width' => 220,
                     'type' => 'text',
             ),
             'position' => array(
-	            'title' => $this->l('Position' ),
+	            'title' => $this->l('Position'),
 				'align' => 'left',
 				'position' => 'position',
         	),
             'active' => array(
-                'title' => $this->l('Status' ),
+                'title' => $this->l('Status'),
                 'width' => 60,
                 'align' => 'center',
                 'active' => 'status',
@@ -52,9 +52,9 @@ class AdminxippostController extends ModuleAdminController {
         );
         $this->bulk_actions = array(
             'delete' => array(
-                'text' => $this->l('Delete selected' ),
+                'text' => $this->l('Delete selected'),
                 'icon' => 'icon-trash',
-                'confirm' => $this->l('Delete selected items?' )
+                'confirm' => $this->l('Delete selected items?')
             )
         );
         parent::__construct();
@@ -104,7 +104,7 @@ class AdminxippostController extends ModuleAdminController {
     	}
         $this->fields_form = array(
             'legend' => array(
-          		'title' => $this->l('Add New Post' ),
+          		'title' => $this->l('Add New Post'),
             ),
             'input' => array(
             	array(
@@ -113,16 +113,16 @@ class AdminxippostController extends ModuleAdminController {
                 ),
                 array(
                     'type' => 'text',
-                    'label' => $this->l('Post Title' ),
+                    'label' => $this->l('Post Title'),
                     'name' => 'post_title',
                     'id' => 'name', // for copyMeta2friendlyURL compatibility
                     'class' => 'copyMeta2friendlyURL',
-                    'desc' => $this->l('Enter Your Blog Post Title' ),
+                    'desc' => $this->l('Enter Your Blog Post Title'),
                     'lang' => true,
                 ),
                 array(
                     'type' => 'radio',
-                    'label' => $this->l('Post Format' ),
+                    'label' => $this->l('Post Format'),
                     'name' => 'post_format',
                     'required' => false,
                     'class' => 't',
@@ -131,49 +131,49 @@ class AdminxippostController extends ModuleAdminController {
                         array(
                             'id' => 'standrad',
                             'value' => 'standrad',
-                            'label' => $this->l('Standrad' )
+                            'label' => $this->l('Standrad')
                         ),
                         array(
                             'id' => 'gallery',
                             'value' => 'gallery',
-                            'label' => $this->l('Gallery' )
+                            'label' => $this->l('Gallery')
                         ),
                         array(
                             'id' => 'video',
                             'value' => 'video',
-                            'label' => $this->l('Video' )
+                            'label' => $this->l('Video')
                         ),
                         array(
                             'id' => 'audio',
                             'value' => 'audio',
-                            'label' => $this->l('Audio' )
+                            'label' => $this->l('Audio')
                         )
                     )
                 ),
                 array(
                     'type' => 'textarea',
-                    'label' => $this->l('Post Excerpt' ),
+                    'label' => $this->l('Post Excerpt'),
                     'name' => 'post_excerpt',
-                    'desc' => $this->l('Enter Your Blog Post Excerpt' ),
+                    'desc' => $this->l('Enter Your Blog Post Excerpt'),
                     'lang' => true,
                 ),
                 array(
                     'type' => 'textarea',
-                    'label' => $this->l('Post Content' ),
+                    'label' => $this->l('Post Content'),
                     'name' => 'post_content',
-                    'desc' => $this->l('Enter Your Blog Post Content' ),
+                    'desc' => $this->l('Enter Your Blog Post Content'),
                     'lang' => true,
                     'autoload_rte' => true,
                 ),
                 array(
                     'type' => 'file',
-                    'label' => $this->l('Post Feature Image' ),
+                    'label' => $this->l('Post Feature Image'),
                     'name' => 'post_img',
-                    'desc' => $post_img_temp.$this->l('Please Upload Feature Image From Your Computer.' ),
+                    'desc' => $post_img_temp.$this->l('Please Upload Feature Image From Your Computer.'),
                 ),
                 array(
                     'type' => 'select',
-                    'label' => $this->l('Select Default Category' ),
+                    'label' => $this->l('Select Default Category'),
                     'name' => 'category_default',
                     'options' => array(
                         'query' => xipcategoryclass::SerializeCategory(),
@@ -181,9 +181,19 @@ class AdminxippostController extends ModuleAdminController {
                         'name' => 'name'
                     )
                 ),
+                // array(
+                //     'type' => 'checkbox',
+                //     'label' => $this->l('Select Categories'),
+                //     'name' => 'extra_categories',
+                //     'values' => array(
+                //         'query' => xipcategoryclass::SerializeCategory(false),
+                //         'id' => 'id',
+                //         'name' => 'name'
+                //     )
+                // ),
                 array(
                     'type' => 'select',
-                    'label' => $this->l('Select Related Products' ),
+                    'label' => $this->l('Select Related Products'),
                     'name' => 'related_products',
                     'options' => array(
                         'query' => self::getallproducts(),
@@ -193,66 +203,66 @@ class AdminxippostController extends ModuleAdminController {
                 ),
                 array(
                     'type' => 'text',
-                    'label' => $this->l('Meta Title' ),
+                    'label' => $this->l('Meta Title'),
                     'name' => 'meta_title',
-                    'desc' => $this->l('Enter Your Post Meta Title for SEO' ),
+                    'desc' => $this->l('Enter Your Post Meta Title for SEO'),
                     'lang' => true,
                 ),
                 array(
                     'type' => 'tags',
-                    'label' => $this->l('Meta Tag' ),
+                    'label' => $this->l('Meta Tag'),
                     'name' => 'meta_tag',
-                    'desc' => $this->l('Enter Your Post Meta Tag. Seperate by comma(,)' ),
+                    'desc' => $this->l('Enter Your Post Meta Tag. Seperate by comma(,)'),
                 ),
                 array(
                     'type' => 'textarea',
-                    'label' => $this->l('Meta Description' ),
+                    'label' => $this->l('Meta Description'),
                     'name' => 'meta_description',
-                    'desc' => $this->l('Enter Your Post Meta Description for SEO' ),
+                    'desc' => $this->l('Enter Your Post Meta Description for SEO'),
                     'lang' => true,
                 ),
                 array(
                     'type' => 'tags',
-                    'label' => $this->l('Meta Keyword' ),
+                    'label' => $this->l('Meta Keyword'),
                     'name' => 'meta_keyword',
-                    'desc' => $this->l('Enter Your Post Meta Keyword for SEO. Seperate by comma(,)' ),
+                    'desc' => $this->l('Enter Your Post Meta Keyword for SEO. Seperate by comma(,)'),
                     'lang' => true,
                 ),
                 array(
                     'type' => 'text',
-                    'label' => $this->l('URL Rewrite' ),
+                    'label' => $this->l('URL Rewrite'),
                     'name' => 'link_rewrite',
-                    'desc' => $this->l('Enter Your Post Url for SEO' ),
+                    'desc' => $this->l('Enter Your Post Url for SEO'),
                     'lang' => true,
                 ),
                 array(
                     'type' => 'gallery',
-                    'label' => $this->l('Gallery' ),
+                    'label' => $this->l('Gallery'),
                     'name' => 'gallery_temp',
                     'defaults' => $gallery_temp,
                     'defaults_str' => $gallery_temp_str,
                     'url' => xipblog_img_uri,
-                    'desc' => $this->l('Please give Image url for Gallery post. seperate by comma(,). You can add Any Kind of Image URL.' ),
+                    'desc' => $this->l('Please give Image url for Gallery post. seperate by comma(,). You can add Any Kind of Image URL.'),
                 ),
                 array(
                     // 'type' => 'textarea',
                     'type' => 'text_multiple',
-                    'label' => $this->l('Video' ),
+                    'label' => $this->l('Video'),
                     'name' => 'video_temp',
                     'defaults' => $video_temp,
-                    'desc' => $this->l('Please give video irame url for video post. seperate by comma(,). You can add youtube or vimeo video url.' ),
+                    'desc' => $this->l('Please give video irame url for video post. seperate by comma(,). You can add youtube or vimeo video url.'),
                 ),
                 array(
                     // 'type' => 'textarea',
                     'type' => 'text_multiple',
-                    'label' => $this->l('Audio' ),
+                    'label' => $this->l('Audio'),
                     'name' => 'audio_temp',
                     'defaults' => $audio_temp,
-                    'desc' => $this->l('Please give Audio url for Audio post. seperate by comma(,). You can add any kind of anudio sourch.' ),
+                    'desc' => $this->l('Please give Audio url for Audio post. seperate by comma(,). You can add any kind of anudio sourch.'),
                 ),
                 array(
                     'type' => 'select',
-                    'label' => $this->l('Comment Status' ),
+                    'label' => $this->l('Comment Status'),
                     'name' => 'comment_status',
                     'options' => array(
                         'query' => array(
@@ -275,7 +285,7 @@ class AdminxippostController extends ModuleAdminController {
                 ),
                 array(
                     'type' => 'switch',
-                    'label' => $this->l('Status' ),
+                    'label' => $this->l('Status'),
                     'name' => 'active',
                     'required' => false,
                     'class' => 't',
@@ -284,32 +294,32 @@ class AdminxippostController extends ModuleAdminController {
                         array(
                             'id' => 'active',
                             'value' => 1,
-                            'label' => $this->l('Enabled' )
+                            'label' => $this->l('Enabled')
                         ),
                         array(
                             'id' => 'active',
                             'value' => 0,
-                            'label' => $this->l('Disabled' )
+                            'label' => $this->l('Disabled')
                         )
                     )
                 )
             ),
             'submit' => array(
-                'title' => $this->l('Save' ),
+                'title' => $this->l('Save'),
                 'class' => 'btn btn-default pull-right'
             )
         );
         if(Shop::isFeatureActive())
 			$this->fields_form['input'][] = array(
 				'type' => 'shop',
-				'label' => $this->l('Shop association:' ),
+				'label' => $this->l('Shop association:'),
 				'name' => 'checkBoxShopAsso',
 			);
         if(!($xippostsclass = $this->loadObject(true)))
             return;
         $this->setdefaultvalue($xippostsclass);
         $this->fields_form['submit'] = array(
-            'title' => $this->l('Save   ' ),
+            'title' => $this->l('Save   '),
             'class' => 'btn btn-default pull-right'
         );
         $this->tpl_form_vars = array(

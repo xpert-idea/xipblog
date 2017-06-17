@@ -1,4 +1,17 @@
 <?php
+// fashion.jpg
+// Lifestyle.jpg
+// Entertainment.jpg
+// blog.jpg
+// blog1.jpg
+// blog2.jpg
+// blog3.jpg
+// blog4.jpg
+// blog5.jpg
+// blog6.jpg
+// large-blog31.jpg
+// large-blog2.jpg
+// large-blog1.jpg
 $xipblog_categories = array(
     array(
     	'lang' => array(
@@ -11,7 +24,7 @@ $xipblog_categories = array(
     	),
     	'notlang' => array(
     		'category_group' => 0,
-    		'category_img' => '4.jpg',
+    		'category_img' => 'fashion.jpg',
     		'category_type' => 'category',
     		'active' => 1,
     	),
@@ -27,7 +40,7 @@ $xipblog_categories = array(
     	),
     	'notlang' => array(
     		'category_group' => 0,
-    		'category_img' => '4.jpg',
+    		'category_img' => 'Lifestyle.jpg',
     		'category_type' => 'category',
     		'active' => 1,
     	),
@@ -43,7 +56,7 @@ $xipblog_categories = array(
     	),
     	'notlang' => array(
     		'category_group' => 0,
-    		'category_img' => '4.jpg',
+    		'category_img' => 'Entertainment.jpg',
     		'category_type' => 'category',
     		'active' => 1,
     	),
@@ -64,7 +77,7 @@ $xipblog_posts = array(
                 'category_default' => 1,
                 'post_type' => 'post',
                 'post_format' => 'standrad',
-                'post_img' => '4.jpg',
+                'post_img' => 'blog4.jpg',
                 'video' => '',
                 'audio' => '',
                 'gallery' => '',
@@ -98,7 +111,7 @@ $xipblog_posts = array(
                 'category_default' => 1,
                 'post_type' => 'post',
                 'post_format' => 'standrad',
-                'post_img' => '4.jpg',
+                'post_img' => 'blog4.jpg',
                 'video' => '',
                 'audio' => '',
                 'gallery' => '',
@@ -132,7 +145,7 @@ $xipblog_posts = array(
                 'category_default' => 1,
                 'post_type' => 'post',
                 'post_format' => 'standrad',
-                'post_img' => '4.jpg',
+                'post_img' => 'blog4.jpg',
                 'video' => '',
                 'audio' => '',
                 'gallery' => '',
@@ -166,7 +179,7 @@ $xipblog_posts = array(
                 'category_default' => 1,
                 'post_type' => 'post',
                 'post_format' => 'standrad',
-                'post_img' => '4.jpg',
+                'post_img' => 'blog4.jpg',
                 'video' => '',
                 'audio' => '',
                 'gallery' => '',
@@ -269,10 +282,10 @@ $xipblog_posts = array(
                 'category_default' => 1,
                 'post_type' => 'post',
                 'post_format' => 'gallery',
-                'post_img' => '4.jpg',
+                'post_img' => 'blog4.jpg',
                 'video' => '',
                 'audio' => '',
-                'gallery' => '4.jpg,4.jpg,4.jpg',
+                'gallery' => 'blog4.jpg,blog4.jpg,blog4.jpg',
                 'related_products' => '0',
                 'comment_count' => 0,
                 'active' => 1,
@@ -303,7 +316,7 @@ $xipblog_posts = array(
                 'category_default' => 1,
                 'post_type' => 'post',
                 'post_format' => 'standrad',
-                'post_img' => '4.jpg',
+                'post_img' => 'large-blog4.jpg',
                 'video' => '',
                 'audio' => '',
                 'gallery' => '',
@@ -338,7 +351,7 @@ $xipblog_posts = array(
                 'category_default' => 1,
                 'post_type' => 'post',
                 'post_format' => 'standrad',
-                'post_img' => '4.jpg',
+                'post_img' => 'large-blog4.jpg',
                 'video' => '',
                 'audio' => '',
                 'gallery' => '',
@@ -372,7 +385,7 @@ $xipblog_posts = array(
                 'category_default' => 1,
                 'post_type' => 'post',
                 'post_format' => 'standrad',
-                'post_img' => '4.jpg',
+                'post_img' => 'blog4.jpg',
                 'video' => '',
                 'audio' => '',
                 'gallery' => '',
@@ -406,10 +419,10 @@ $xipblog_posts = array(
                 'category_default' => 1,
                 'post_type' => 'post',
                 'post_format' => 'gallery',
-                'post_img' => '4.jpg',
+                'post_img' => 'large-blog4.jpg',
                 'video' => '',
                 'audio' => '',
-                'gallery' => '4.jpg,4.jpg,4.jpg',
+                'gallery' => 'blog4.jpg,large-blog4.jpg,blog4.jpg',
                 'related_products' => '0',
                 'comment_count' => 0,
                 'active' => 1,

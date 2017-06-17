@@ -1,15 +1,10 @@
 <?php
+
 class xipblogMainModuleFrontController extends ModuleFrontController
 {
 	public $nbProducts;
 	public $page_type;
-	public $module_name = 'xipblog';
 	public static $initialized = false;
-	public function __construct()
-	{
-	    parent::__construct();
-	    $this->controller_type = 'modulefront';
-	}
 	public function init()
 	{
 		$this->page_type = Tools::getValue('page_type');
@@ -27,22 +22,19 @@ class xipblogMainModuleFrontController extends ModuleFrontController
 		$xipblog = new xipblog();
 		$xipblogsettings = $xipblog->GetSettingsValueS();
 		$column_use = Configuration::get(xipblog::$xipblogshortname."column_use");
-		$this->context->smarty->assign(array(
-			'xipblog_column_use'  => $column_use,
-		));
-		// if($this->display_column_left && ($column_use == 'own_ps')){
-		// 	$this->context->smarty->assign(array(
-		// 	    'HOOK_LEFT_COLUMN'  => Hook::exec('displayxipblogleft'),
-		// 	));
-		// }
-		// if($this->display_column_right && ($column_use == 'own_ps')){
-		// 	$this->context->smarty->assign(array(
-		// 	    'HOOK_RIGHT_COLUMN'  => Hook::exec('displayxipblogright'),
-		// 	));
-		// }
+		if($this->display_column_left && ($column_use == 'own_ps')){
+			$this->context->smarty->assign(array(
+			    'HOOK_LEFT_COLUMN'  => Hook::exec('displayxipblogleft'),
+			));
+		}
+		if($this->display_column_right && ($column_use == 'own_ps')){
+			$this->context->smarty->assign(array(
+			    'HOOK_RIGHT_COLUMN'  => Hook::exec('displayxipblogright'),
+			));
+		}
 		$this->context->smarty->assign('xipblogsettings',$xipblogsettings);
 	}
-	public function setTemplate($template, $params = array(), $locale = null)
+	public function setTemplate($template)
 	{
 	    if (!$path = $this->getTemplatePath($template)) {
 	    	$themename = xipblog::GetThemeName();

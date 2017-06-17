@@ -80,10 +80,6 @@ class xippostsclass extends ObjectModel
     	$tags_ids = self::GetCategoryTypeIds($tags);
     	self::TagPostInsert($this->id,$tags_ids);
     	$this->post_modified = date("Y-m-d H:i:s");
-		if(empty($this->post_img) && isset($this->id)){
-			$xippostsclass = new xippostsclass($this->id);
-			$this->post_img = $xippostsclass->post_img;
-		}
         if(!parent::update($null_values))
             return false;
         return true;

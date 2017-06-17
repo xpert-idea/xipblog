@@ -23,7 +23,7 @@ class xipimagetypeclass extends ObjectModel
 	);
 	public function __construct($id = null, $id_lang = null, $id_shop = null)
 	{
-        parent::__construct($id, $id_lang, $id_shop);
+                parent::__construct($id, $id_lang, $id_shop);
     }
     public function update($null_values = false)
     {
@@ -44,13 +44,6 @@ class xipimagetypeclass extends ObjectModel
        $sql = 'SELECT * FROM `'._DB_PREFIX_.'xip_image_type` ';
        $sql .= ' WHERE active = 1 AND id_shop = '.(int)$id_shop;
        $queryexec = Db::getInstance()->executeS($sql);
-       if(isset($queryexec) && !empty($queryexec)){
-       		return $queryexec;
-       }else{
-	       	$sql2 = 'SELECT * FROM `'._DB_PREFIX_.'xip_image_type` ';
-	       	$sql2 .= ' WHERE active = 1';
-	       	$queryexec2 = Db::getInstance()->executeS($sql2);
-	       	return $queryexec2;
-       }
+       return $queryexec;
     }
 }

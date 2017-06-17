@@ -18,11 +18,11 @@ class xipblogSingleModuleFrontController extends xipblogMainModuleFrontControlle
         if(!xippostsclass::PostExists($this->id_identity,$this->page_type)){
         	$url = xipblog::XipBlogLink();
 			Tools::redirect($url);
-        	$this->errors[] = Tools::displayError($this->l('Blog Post Not Found.' ));
+        	$this->errors[] = Tools::displayError($this->l('Blog Post Not Found.'));
         }
         if (!$this->id_identity || !Validate::isUnsignedId($this->id_identity)){
         	Tools::redirect('index.php?controller=404');
-        	$this->errors[] = Tools::displayError($this->l('Blog Post Not Found.' ));
+        	$this->errors[] = Tools::displayError($this->l('Blog Post Not Found.'));
         }else{
         	$this->blogpost = xippostsclass::GetSinglePost($this->id_identity);
         	xippostsclass::PostCountUpdate($this->id_identity);
@@ -41,7 +41,6 @@ class xipblogSingleModuleFrontController extends xipblogMainModuleFrontControlle
         parent::initContent();
         if(isset($this->blogpost) && !empty($this->blogpost)){
         		$this->context->smarty->assign('xipblogpost',$this->blogpost);
-        		$this->context->smarty->tpl_vars['page']->value['meta']['title'] = $this->blogpost['meta_title'];
         		if(isset($this->blogpost['meta_title']) && !empty($this->blogpost['meta_title'])){
 	        		$this->context->smarty->assign('meta_title',$this->blogpost['meta_title']);
         		}else{
@@ -91,47 +90,5 @@ class xipblogSingleModuleFrontController extends xipblogMainModuleFrontControlle
         	}
         }
         $this->setTemplate($template);
-    }
-    public function getLayout()
-    {
-        $entity = 'module-xipblog-single';
-        $layout = $this->context->shop->theme->getLayoutRelativePathForPage($entity);
-        if ($overridden_layout = Hook::exec(
-            'overrideLayoutTemplate',
-            array(
-                'default_layout' => $layout,
-                'entity' => $entity,
-                'locale' => $this->context->language->locale,
-                'controller' => $this,
-            )
-        )) {
-            return $overridden_layout;
-        }
-        if ((int) Tools::getValue('content_only')) {
-            $layout = 'layouts/layout-content-only.tpl';
-        }
-        return $layout;
-    }
-    public function getBreadcrumbLinks()
-    {
-
-        $breadcrumb = parent::getBreadcrumbLinks();
-        $blog_title = Configuration::get(xipblog::$xipblogshortname."meta_title");
-        $breadcrumb['links'][] = array(
-            'title' => $blog_title,
-            'url' => xipblog::XipBlogLink(),
-        );
-
-        $breadcrumb['links'][] = array(
-            'title' => (isset($this->blogpost['category_default_arr']['title']) && !empty($this->blogpost['category_default_arr']['title'])) ? $this->blogpost['category_default_arr']['title'] : $this->blogpost['category_default_arr']['name'],
-            'url' => $this->blogpost['category_default_arr']['link'],
-        );
-
-        $breadcrumb['links'][] = array(
-            'title' => $this->blogpost['post_title'],
-            'url' => $this->blogpost['link'],
-        );
-
-        return $breadcrumb;
     }
 }

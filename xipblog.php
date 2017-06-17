@@ -1,5 +1,6 @@
 <?php
-use PrestaShop\PrestaShop\Core\Module\WidgetInterface;
+if (!defined('_CAN_LOAD_FILES_'))
+	exit;
 include_once _PS_MODULE_DIR_.'xipblog/config/define.inc.php';
 include_once _PS_MODULE_DIR_.'xipblog/classes/xipimagetypeclass.php';
 include_once _PS_MODULE_DIR_.'xipblog/classes/xipcategorypostclass.php';
@@ -8,39 +9,20 @@ include_once _PS_MODULE_DIR_.'xipblog/classes/xipcategoryclass.php';
 include_once _PS_MODULE_DIR_.'xipblog/classes/xippostsclass.php';
 include_once _PS_MODULE_DIR_.'xipblog/classes/xippostmetaclass.php';
 include_once _PS_MODULE_DIR_.'xipblog/controllers/front/main.php';
-class xipblog extends Module implements WidgetInterface
+class xipblog extends Module
 {
 	public static $xipblogshortname = 'xipblog';
 	public static $quick_key = 'xipblogquickaceslink';
 	public static $xiplinkobj;
 	public static $dispatcherobj;
-	public static $inlinejs = array();
-	public $all_hooks = array("displayheader","ModuleRoutes","displayhome");
+	public $all_hooks = array("displayheader","ModuleRoutes","displayxipblogleft","displayxipblogright");
 	public $fields_arr_path = '/data/fields_array.php';
-	public $css_files = array(
-		array(
-			'key' => 'xipblog_css',
-			'src' => 'xipblog.css',
-			'priority' => 250,
-			'media' => 'all',
-			'load_theme' => false,
-		),
+	public static $css_files = array(
+		"xipblog.css",
 	);
-	public $js_files = array(
-		array(
-			'key' => 'xipblog_js',
-			'src' => 'xipblog.js',
-			'priority' => 250,
-			'position' => 'bottom', // bottom or head
-			'load_theme' => false,
-		),
-		array(
-			'key' => 'xipblog_validator_js',
-			'src' => 'validator.min.js',
-			'priority' => 250,
-			'position' => 'bottom', // bottom or head
-			'load_theme' => false,
-		),
+	public static $js_files = array(
+		"xipblog.js",
+		"validator.min.js",
 	);
 	public $all_tabs = array(
 		array(
@@ -70,18 +52,14 @@ class xipblog extends Module implements WidgetInterface
 	{
 		$this->name = 'xipblog';
 		$this->tab = 'front_office_features';
-		$this->version = '2.0.1';
-		$this->author = 'xpert-idea.com';
+		$this->version = '1.0.1';
+		$this->author = 'xpert-idea';
 		$this->bootstrap = true;
-        $this->need_upgrade = true;
 		$this->controllers = array('archive','single');
 		parent::__construct();	
-		$this->displayName = $this->l('Xpert Prestashop Blog Module by xpert-idea.com');
-		$this->description = $this->l('XipBlog Powerfull Prestashop Blog Module by xpert-idea.com');
-		$this->ps_versions_compliancy = array('min' => '1.7', 'max' => _PS_VERSION_);
-        if(!isset($this->context)){
-			$this->context = Context::getContext();
-        }
+		$this->displayName = $this->l('XipBlog');
+		$this->description = $this->l('Prestashop Powerfull Blog Module');
+		$this->ps_versions_compliancy = array('min' => '1.6', 'max' => '1.6.99.99');
 	}
 	public function install()
 	{
@@ -132,30 +110,15 @@ class xipblog extends Module implements WidgetInterface
         	return false;
         }
     }
-	public static function xipblog_js($params, $content, &$smarty)
-	{
-		if(isset($params['name']) && !empty($params['name']) && !empty($content)){
-			self::$inlinejs[$params['name']] = $content;
-		}
-	}
 	public function Register_Hooks()
 	{	
         $this->registerHook("displayAdminAfterHeader");
-        $this->registerHook("displayBeforeBodyClosingTag");
-		if(isset($this->all_hooks) && !empty($this->all_hooks)){
+		if(isset($this->all_hooks)){
 			foreach ($this->all_hooks as $hook) {
         		$this->registerHook($hook);
 			}
 		}
         return true;
-	}
-	public function hookdisplayBeforeBodyClosingTag($params)
-	{
-		if(isset(self::$inlinejs) && !empty(self::$inlinejs)){
-			foreach (self::$inlinejs as $keyinlinejs => $valueinlinejs) {
-				print $valueinlinejs;
-			}
-		}
 	}
 	public function UnRegister_Hooks()
 	{
@@ -199,20 +162,42 @@ class xipblog extends Module implements WidgetInterface
 	}
 	public function UnRegister_Tabs()
 	{
-		if(isset($this->all_tabs) && !empty($this->all_tabs)){
-			foreach($this->all_tabs as $tab_list){
-				$tab_list_id = Tab::getIdFromClassName($tab_list['class_name']);
-			    if(isset($tab_list_id) && !empty($tab_list_id)){
-			        $tabobj = new Tab($tab_list_id);
-			        $tabobj->delete();
-			    }
-			}
+		$tabpar_list_id = Tab::getIdFromClassName("Adminxipblogsetting");
+		if(isset($tabpar_list_id) && !empty($tabpar_list_id)){
+		    $tabparobj = new Tab($tabpar_list_id);
+		    $tabparobj->delete();
 		}
-		$tabp_list_id = Tab::getIdFromClassName('Adminxprtblogdashboard');
-		$tabpobj = new Tab($tabp_list_id);
-	    $tabpobj->delete();
+		$tabs_lists = array();
+			if(isset($this->all_tabs) && !empty($this->all_tabs))
+	        foreach($this->all_tabs as $tab_list){
+	        	$tab_list_id = Tab::getIdFromClassName($tab_list['class_name']);
+	            if(isset($tab_list_id) && !empty($tab_list_id)){
+	                $tabobj = new Tab($tab_list_id);
+	                $tabobj->delete();
+	            }
+	        }
         return true;
 	}
+	public function RegisterParentTabs(){
+    	$langs = Language::getLanguages();
+    	$save_tab_id = (int)Tab::getIdFromClassName("Adminxipblogsetting");
+    	if($save_tab_id != 0){
+    		return $save_tab_id;
+    	}else{
+    		$tab_listobj = new Tab();
+    		$tab_listobj->class_name = 'Adminxipblogsetting';
+    		$tab_listobj->id_parent = 0;
+    		$tab_listobj->module = $this->name;
+    		foreach($langs as $l)
+    		{
+    		    $tab_listobj->name[$l['id_lang']] = $this->l("XipBlog");
+    		}
+    		if($tab_listobj->save())
+    			return (int)$tab_listobj->id;
+    		else
+    			return (int)$save_tab_id;
+    	}
+    }
 	public function hookModuleRoutes($params)
     {
     	$mainslug = Configuration::get(self::$xipblogshortname."main_blog_url");
@@ -465,6 +450,9 @@ class xipblog extends Module implements WidgetInterface
     }
     public static function XipBlogTagLink($params = array()){
     	$url_format = Configuration::get(self::$xipblogshortname."url_format");
+    	// if(isset($params['id']) && !isset($params['rewrite'])){
+    	// 	$params['rewrite'] = xippostsclass::get_the_rewrite($params['id']);
+    	// }
     	if(!isset($params['page_type'])){
     		$params['page_type'] = 'tag';
     	}
@@ -489,6 +477,9 @@ class xipblog extends Module implements WidgetInterface
     }
     public static function XipBlogCategoryLink($params = array()){
         $url_format = Configuration::get(self::$xipblogshortname."url_format");
+        // if(isset($params['id']) && !isset($params['rewrite'])){
+        // 	$params['rewrite'] = xippostsclass::get_the_rewrite($params['id']);
+        // }
         if(!isset($params['page_type'])){
     		$params['page_type'] = 'category';
     	}
@@ -520,35 +511,22 @@ class xipblog extends Module implements WidgetInterface
 			return "default";
 		}
 	}
-	public function Register_ETabs(){
-		$tabpar_listobj = new Tab();
-		$langs = Language::getLanguages();
-		$id_parent = (int)Tab::getIdFromClassName("IMPROVE");
-		$tabpar_listobj->class_name = 'Adminxprtblogdashboard';
-		$tabpar_listobj->id_parent = $id_parent;
-		$tabpar_listobj->module = $this->name;
-		foreach($langs as $l)
-	    {
-	    	$tabpar_listobj->name[$l['id_lang']] = $this->l("Xpert Blog");
-	    }
-	    if($tabpar_listobj->save()){
-	    	return (int)$tabpar_listobj->id;
-	    }else{
-	    	return (int)$id_parent;
-	    }
-	}
 	public function Register_Tabs()
 	{
 		$tabs_lists = array();
         $langs = Language::getLanguages();
         $id_lang = (int)Configuration::get('PS_LANG_DEFAULT');
-        $save_tab_id = $this->Register_ETabs();
+        $save_tab_id = $this->RegisterParentTabs();
     	if(isset($this->all_tabs) && !empty($this->all_tabs)){
     		foreach ($this->all_tabs as $tab_list)
     		{
     		    $tab_listobj = new Tab();
     		    $tab_listobj->class_name = $tab_list['class_name'];
-    		    $tab_listobj->id_parent = $save_tab_id;
+    		    if($tab_list['id_parent'] == 'parent'){
+    		    	$tab_listobj->id_parent = $save_tab_id;
+    		    }else{
+    		    	$tab_listobj->id_parent = $tab_list['id_parent'];
+    		    }
     		    if(isset($tab_list['module']) && !empty($tab_list['module'])){
     		    	$tab_listobj->module = $tab_list['module'];
     		    }else{
@@ -687,70 +665,23 @@ class xipblog extends Module implements WidgetInterface
         }
         return $xipblogsettings;
     }
-    public function Register_Css()
-    {
-        if(isset($this->css_files) && !empty($this->css_files)){
-        	$theme_name = $this->context->shop->theme_name;
-    		$page_name = $this->context->controller->php_self;
-        	foreach($this->css_files as $css_file):
-        		if(isset($css_file['key']) && !empty($css_file['key']) && isset($css_file['src']) && !empty($css_file['src'])){
-        			$media = (isset($css_file['media']) && !empty($css_file['media'])) ? $css_file['media'] : 'all';
-        			$priority = (isset($css_file['priority']) && !empty($css_file['priority'])) ? $css_file['priority'] : 50;
-        			$page = (isset($css_file['page']) && !empty($css_file['page'])) ? $css_file['page'] : array('all');
-        			if(is_array($page)){
-        				$pages = $page;
-        			}else{
-        				$pages = array($page);
-        			}
-        			if(in_array($page_name, $pages) || in_array('all', $pages)){
-        				if(isset($css_file['load_theme']) && ($css_file['load_theme'] == true)){
-        					$this->context->controller->registerStylesheet($css_file['key'], 'themes/'.$theme_name.'/assets/css/'.$css_file['src'], ['media' => $media, 'priority' => $priority]);
-        				}else{
-        					$this->context->controller->registerStylesheet($css_file['key'], 'modules/'.$this->name.'/css/'.$css_file['src'], ['media' => $media, 'priority' => $priority]);
-        				}
-    				}
-        		}
-        	endforeach;
-        }
-        return true;
+    public function hookdisplayxipblogleft(){
+    	// return 'i am left';
     }
-    public function Register_Js()
-    {
-        if(isset($this->js_files) && !empty($this->js_files)){
-	    	$theme_name = $this->context->shop->theme_name;
-			$page_name = $this->context->controller->php_self;
-        	foreach($this->js_files as $js_file):
-        		if(isset($js_file['key']) && !empty($js_file['key']) && isset($js_file['src']) && !empty($js_file['src'])){
-        			$position = (isset($js_file['position']) && !empty($js_file['position'])) ? $js_file['position'] : 'bottom';
-        			$priority = (isset($js_file['priority']) && !empty($js_file['priority'])) ? $js_file['priority'] : 50;
-        			$page = (isset($css_file['page']) && !empty($css_file['page'])) ? $css_file['page'] : array('all');
-        			if(is_array($page)){
-        				$pages = $page;
-        			}else{
-        				$pages = array($page);
-        			}
-        			if(in_array($page_name, $pages) || in_array('all', $pages)){
-	        			if(isset($js_file['load_theme']) && ($js_file['load_theme'] == true)){
-	        				$this->context->controller->registerJavascript($js_file['key'], 'themes/'.$theme_name.'/assets/js/'.$js_file['src'], ['position' => $position, 'priority' => $priority]);
-	        			}else{
-	        				$this->context->controller->registerJavascript($js_file['key'], 'modules/'.$this->name.'/js/'.$js_file['src'], ['position' => $position, 'priority' => $priority]);
-	        			}
-        			}
-        		}
-        	endforeach;
-        }
-        return true;
+    public function hookdisplayxipblogright(){
+    	// return 'i am right';
     }
-    public function hookdisplayheader()
-    {
-    	$base_url = $this->context->shop->getBaseURL(true, true);
-    	Media::addJsDef(array('xprt_base_dir' => $base_url));
-        if((isset($this->context->controller->controller_type)) && ($this->context->controller->controller_type == 'front' || $this->context->controller->controller_type == 'modulefront')){
-			global $smarty;
-			smartyRegisterFunction($smarty, 'block', 'xipblog_js', array('xipblog', 'xipblog_js'));
-		}
-    	$this->Register_Css();
-    	$this->Register_Js();
+    public function hookdisplayheader(){
+    	if(isset(self::$css_files) && !empty(self::$css_files)){
+    		foreach (self::$css_files as $css) {
+    			$this->context->controller->addCSS($this->_path."css/".$css);
+    		}
+    	}
+    	if(isset(self::$js_files) && !empty(self::$js_files)){
+    		foreach (self::$js_files as $js) {
+    			$this->context->controller->addJS($this->_path."js/".$js);
+    		}
+    	}
     }
     public function GenerateImageThumbnail($select_image_type = 'all'){
     	$dir = _PS_MODULE_DIR_.self::$ModuleName.'/img/';
@@ -818,11 +749,8 @@ class xipblog extends Module implements WidgetInterface
     }
     public function getContent()
     {
-    	// 	    $id_lang = (int)Context::getContext()->language->id;
-	    // $id_shop = (int)Context::getContext()->shop->id;
-	    // include_once(dirname(__FILE__).'/data/dummy_data.php');
-	    // $this->InsertDummyData($xipblog_imagetype,'xipimagetypeclass');
-	    
+    	// $this->registerHook("displayBackOfficeTop");
+    	// $this->registerHook("displayAdminAfterHeader");
     	if(Tools::isSubmit('submit_generateimage')){
         	$select_image_type = Tools::getValue('select_image_type');
         	$this->GenerateImageThumbnail($select_image_type);
@@ -1079,31 +1007,5 @@ class xipblog extends Module implements WidgetInterface
 		}else{
 			return false;
 		}
-	}
-	public function renderWidget($hookName = null, array $configuration = [])
-	{
-    	$this->smarty->assign($this->getWidgetVariables($hookName,$configuration));
-    	return $this->fetch('module:'.$this->name.'/views/templates/front/'.$this->name.'.tpl');
-	}
-	public function getWidgetVariables($hookName = null, array $configuration = [])
-	{
-	    $id_lang = (int)$this->context->language->id;
-	    $xipbdp_title = Configuration::get(self::$xipblogshortname.'xipbdp_title',$id_lang);
-	    $xipbdp_subtext = Configuration::get(self::$xipblogshortname.'xipbdp_subtext',$id_lang);
-	    $xipbdp_postcount = Configuration::get(self::$xipblogshortname.'xipbdp_postcount');
-	    $xipbdp_designlayout = Configuration::get(self::$xipblogshortname.'xipbdp_designlayout');
-	    $xipbdp_numcolumn = Configuration::get(self::$xipblogshortname.'xipbdp_numcolumn');
-	    Media::addJsDef(array('xipbdp_numcolumn'=>$xipbdp_numcolumn));
-	    $xipblogposts = array();
-	    $xipblogposts = xippostsclass::GetCategoryPosts(0,1,$xipbdp_postcount,'post','DESC');
-	    return array(
-    		'xipbdp_title' => $xipbdp_title,
-    		'xipbdp_subtext' => $xipbdp_subtext,
-    		'xipbdp_postcount' => $xipbdp_postcount,
-    		'xipbdp_designlayout' => $xipbdp_designlayout,
-    		'hookName' => $hookName,
-    		'xipbdp_numcolumn' => $xipbdp_numcolumn,
-    		'xipblogposts' => $xipblogposts,
-	    );
 	}
 }

@@ -88,7 +88,7 @@ $this->fields_form[]['form'] = array(
         ),
         array(
 			'type' => 'switch',
-			'label' => $this->l('Enable Blog Comments'),
+			'label' => $this->l('Disable Blog Comments'),
 			'name' => 'disable_blog_com',
             'default_val' => '1',
 			'values' => array(
@@ -157,6 +157,17 @@ $this->fields_form[]['form'] = array(
             'default_val' => 'tag',
             'class' => 'fixed-width-sm',
         ),
+        // /category/{id_category}_{rewrite}
+        // /category/{rewrite}_{id_category}
+        // /category/{rewrite}
+
+        // /tag/{id_tag}_{rewrite}
+        // /tag/{rewrite}_{id_tag}
+        // /tag/{rewrite}
+
+        // /post/{id_post}_{rewrite}
+        // /post/{rewrite}_{id_post}
+        // /post/{rewrite}
         array(
 			'type' => 'radio',
 			'label' => $this->l('Url Format'),
@@ -207,162 +218,5 @@ $this->fields_form[]['form'] = array(
     'submit' => array(
         'title' => $this->l('Save'),
         'class' => 'btn btn-default pull-right',
-    )
-);
-
-
-// Blog style
-$this->fields_form[]['form'] = array(
-	'tinymce' => true,
-  	'legend' => array(
-  	'title' => $this->l('Blog style'),
-    ),
-    'input' => array(
-        array(
-            'type' => 'select',
-            'label' => $this->l('Blog style'),
-            'name' => 'blog_style',
-            'default_val' => 'default',
-            'data_by_demo' => array(
-            	'demo_1' => 'default',
-            	'demo_2' => 'default',
-            	'demo_3' => 'column',
-            ),
-            'desc' => $this->l('Choose blog style Default/Grid'),
-            'options' => array(
-            	'id' => 'id',
-            	'name' => 'name',
-            	'query' => array(
-            		array(
-            			'id' => 'default',
-            			'name' => 'Default'
-            			),
-            		array(
-            			'id' => 'column',
-            			'name' => 'Column'
-            			),
-            		)
-            	)
-        ),
-        array(
-            'type' => 'select',
-            'label' => $this->l('Blog no of column'),
-            'name' => 'blog_no_of_col',
-            'default_val' => '2',
-            'data_by_demo' => array(
-            	'demo_1' => '4',
-            	'demo_2' => '4',
-            	'demo_3' => '6',
-            ),
-            'desc' => $this->l('Choose blog gird style no of column'),
-            'options' => array(
-            	'id' => 'id',
-            	'name' => 'name',
-            	'query' => array(
-            		array(
-            			'id' => '2',
-            			'name' => 'Two column'
-            			),
-            		array(
-            			'id' => '3',
-            			'name' => 'Three column'
-            			),
-            		array(
-            			'id' => '4',
-            			'name' => 'Four column'
-            			),
-            		)
-            	)
-        ),
-    ),
-    'submit' => array(
-        'title' => $this->l('Save'),
-        'class' => 'btn btn-default pull-right'
-    )
-);
-
-// Blog style
-$this->fields_form[]['form'] = array(
-	'tinymce' => true,
-  	'legend' => array(
-  	'title' => $this->l('Display Home Style'),
-    ),
-    'input' => array(
-        array(
-			'type' => 'text',
-			'label' => $this->l('Title'),
-			'name' => 'xipbdp_title',
-            'default_val' => 'News',
-			'lang' => true,
-		),
-        array(
-			'type' => 'text',
-			'label' => $this->l('Sub Title'),
-			'name' => 'xipbdp_subtext',
-            'default_val' => 'All Recent Posts From XipBlog',
-			'lang' => true,
-		),
-		array(
-			'type' => 'text',
-			'label' => $this->l('How Many Post You Want To Display'),
-			'name' => 'xipbdp_postcount',
-            'default_val' => 4,
-		),
-		array(
-	        'type' => 'select',
-	        'label' => $this->l('Select number of column to display'),
-	        'name' => 'xipbdp_numcolumn',
-            'default_val' => 3,
-	        'options' => array(
-	            'query' => array(
-	            		array(
-	            			'id' => '1',
-	            			'name' => '1 column',
-	            		),
-	            		array(
-	            			'id' => '2',
-	            			'name' => '2 column',
-	            		),
-	            		array(
-	            			'id' => '3',
-	            			'name' => '3 column',
-	            		),
-	            		array(
-	            			'id' => '4',
-	            			'name' => '4 column',
-	            		),
-	            	),
-	            'id' => 'id',
-	            'name' => 'name'
-	        )
-	    ),
-	    array(
-            'type' => 'select',
-            'label' => $this->l('Select Design Layout'),
-            'name' => 'xipbdp_designlayout',
-            'default_val' => 'general',
-            'options' => array(
-                'query' => array(
-                		array(
-                			'id' => 'general',
-                			'name' => 'General',
-                		),
-                		array(
-                			'id' => 'classic',
-                			'name' => 'Classic',
-                		),
-                		array(
-                			'id' => 'creative',
-                			'name' => 'Creative',
-                		),
-                	),
-                'id' => 'id',
-                'name' => 'name'
-            )
-        ),
-    ),
-    'submit' => array(
-        'title' => $this->l('Save'),
-        'class' => 'btn btn-default pull-right'
     )
 );
