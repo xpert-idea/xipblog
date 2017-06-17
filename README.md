@@ -1,8 +1,8 @@
 # xipblog
 This is blog module for prestashop. It has many many amazing features. Standard, Gallery, Audio, Video post format available on this blog module. 
 
-For prestashop 1.7.x.x version : Avobe 2.0.0 module version. 
-For prestashop 1.6.x.x version : 0.0.1 to 1.99.99 module version. 
+* For prestashop 1.7.x.x version : Avobe 2.0.0 module version. 
+* For prestashop 1.6.x.x version : 0.0.1 to 1.99.99 module version. 
 
 # Child Modules
 
