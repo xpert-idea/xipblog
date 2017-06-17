@@ -15,7 +15,7 @@ $querys[] = "CREATE TABLE  IF NOT EXISTS `"._DB_PREFIX_."xipcategory` (
 
 $querys[] = "CREATE TABLE  IF NOT EXISTS `"._DB_PREFIX_."xipcategory_lang` (
   `id_xipcategory` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `id_lang` int(10) unsigned NULL ,
+  `id_lang` int(10) unsigned NOT NULL,
   `name` varchar(350) NOT NULL DEFAULT '',
   `link_rewrite` varchar(350) NOT NULL DEFAULT '',
   `title` varchar(350) NOT NULL DEFAULT '',
@@ -27,7 +27,7 @@ $querys[] = "CREATE TABLE  IF NOT EXISTS `"._DB_PREFIX_."xipcategory_lang` (
 
 $querys[] = "CREATE TABLE IF NOT EXISTS `" . _DB_PREFIX_ . "xipcategory_shop` (
 	`id_xipcategory` int(11) NOT NULL,
-	`id_shop` int(11) DEFAULT NULL,
+	`id_shop` int(11) unsigned NOT NULL,
 	PRIMARY KEY (`id_xipcategory`,`id_shop`)
 )ENGINE=" . _MYSQL_ENGINE_ . " DEFAULT CHARSET=utf8";
 
@@ -55,7 +55,7 @@ $querys[] = "CREATE TABLE IF NOT EXISTS `"._DB_PREFIX_."xipposts` (
 
 $querys[] = "CREATE TABLE IF NOT EXISTS `"._DB_PREFIX_."xipposts_lang` (
   `id_xipposts` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `id_lang` int(10) unsigned NULL ,
+  `id_lang` int(10) unsigned NOT NULL,
   `post_title` text NOT NULL,
   `meta_title` varchar(300) NOT NULL DEFAULT '',
   `meta_description` longtext NOT NULL,
@@ -68,7 +68,7 @@ $querys[] = "CREATE TABLE IF NOT EXISTS `"._DB_PREFIX_."xipposts_lang` (
 
 $querys[] = "CREATE TABLE IF NOT EXISTS `" . _DB_PREFIX_ . "xipposts_shop` (
 	`id_xipposts` int(11) NOT NULL,
-	`id_shop` int(11) DEFAULT NULL,
+	`id_shop` int(11) unsigned NOT NULL,
 	PRIMARY KEY (`id_xipposts`,`id_shop`)
 )ENGINE=" . _MYSQL_ENGINE_ . " DEFAULT CHARSET=utf8" ;
 
