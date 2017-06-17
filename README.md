@@ -1,6 +1,9 @@
 # xipblog
 This is blog module for prestashop. It has many many amazing features. Standard, Gallery, Audio, Video post format available on this blog module. 
 
+For prestashop 1.7.x.x version : Avobe 2.0.0 module version. 
+For prestashop 1.6.x.x version : 0.0.1 to 1.99.99 module version. 
+
 # Child Modules
 
 If you can display xipblog posts on your theme, just installed bellow modules ....
@@ -24,5 +27,7 @@ If you fetch any issue to use our blog module please go to our site and contact 
 We are author of themeforest, Please <a href="https://themeforest.net/user/xpert-idea/portfolio?ref=xpert-idea">click here</a> to see our profile . Also you can visit our website. http://xpert-idea.com/
 
 You can also visit our premimum prestashop themes:
-* <a href="https://themeforest.net/item/jakiro-fashion-shop-prestashop-theme/14100073?ref=xpert-idea">Jakiro Prestashop Theme </a>
-* <a href="https://themeforest.net/item/great-store-ecommerce-prestashop-theme/18303739?ref=xpert-idea">Great Store Prestashop Theme</a>
+
+* <a href="https://themeforest.net/item/platinum-fashion-accessories-prestashop-theme/19208559?ref=xpert-idea">Platinum Prestashop 1.6 & 1.7 Theme</a>
+* <a href="https://themeforest.net/item/jakiro-fashion-shop-prestashop-theme/14100073?ref=xpert-idea">Jakiro Prestashop 1.6 & 1.7 Theme </a>
+* <a href="https://themeforest.net/item/great-store-ecommerce-prestashop-theme/18303739?ref=xpert-idea">Great Store Prestashop 1.6 Theme</a>
