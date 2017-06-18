@@ -55,7 +55,7 @@ class xipblogArchiveModuleFrontController extends xipblogMainModuleFrontControll
 		if(isset($this->blogcategory->title[$id_lang]) && !empty($this->blogcategory->title[$id_lang])){
 			$this->context->smarty->assign('meta_title',$this->blogcategory->title[$id_lang]);
 		}else{
-			$this->context->smarty->assign('meta_title',Configuration::get(xipblog::$xipblogshortname."meta_title"));
+			$this->context->smarty->assign('meta_title',Configuration::get(xipblog::$xipblogshortname."meta_title",$id_lang));
 		}
 		if(isset($this->blogcategory->meta_description[$id_lang]) && !empty($this->blogcategory->meta_description[$id_lang])){
 			$this->context->smarty->assign('meta_description',$this->blogcategory->meta_description[$id_lang]);
