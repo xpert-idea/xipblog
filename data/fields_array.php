@@ -12,6 +12,7 @@ $this->fields_form[]['form'] = array(
             'label' => $this->l('Meta Title'),
             'desc' => $this->l('Inser Blog Meta Title'),
             'name' => 'meta_title',
+	    'lang' => true,
             'default_val' => 'Blog Title',
         ),
         array(
