@@ -649,17 +649,17 @@ class xipblog extends Module implements WidgetInterface
     	$module_dirs = _PS_MODULE_DIR_.xipblog_tpl_dir;
 
     	if(is_dir($theme_dirs)){
-    		$scandir = scandir($theme_dirs);
+    		$scandir = glob($theme_dirs.'*', GLOB_ONLYDIR);
     		$all_folders = array_diff($scandir, array('..', '.'));
     	}elseif(is_dir($module_dirs)){
-    		$scandir = scandir($module_dirs);
+    		$scandir = glob($module_dirs.'*', GLOB_ONLYDIR);
     		$all_folders = array_diff($scandir, array('..', '.'));
     	}
     	if(isset($all_folders) && !empty($all_folders)){
     		$i = 0;
     		foreach ($all_folders as $folder) {
-    			$results[$i]['id'] = $folder;
-    			$results[$i]['name'] = ucwords($folder);
+    			$results[$i]['id'] = basename($folder);
+    			$results[$i]['name'] = ucwords(basename($folder));
     			$i++;
     		}
     	}
