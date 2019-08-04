@@ -112,13 +112,15 @@ class xippostsclass extends ObjectModel
         }
         $tags = Tools::getValue("meta_tag");
         $tags_ids = self::GetCategoryTypeIds($tags);
-        if(!parent::add($autodate, $null_values) || !Validate::isLoadedObject($this)){
+
+        if (!parent::add($autodate, $null_values) || !Validate::isLoadedObject($this)) {
             return false;
-        }else{
-        	self::TagPostInsert($this->id,$tags_ids);
-        	return true;
         }
+        
+	self::TagPostInsert($this->id,$tags_ids);
+        return true;
     }
+
     public function GalleryUploadsUpdated(){
     	$main_update_gallery = '';
     	$gallery_temp = xipblog::BulkUploadMedia("gallery_temp");
