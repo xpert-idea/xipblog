@@ -267,7 +267,7 @@ class xipblog extends Module implements WidgetInterface
                 ),
                 'xipblog-archive-wid-module' => array(
                     'controller' =>  'archive',
-                    'rule' =>        $main_slug.'/'.$category_slug.'/{rewrite}'.$postfix_slug,
+                    'rule' =>        $main_slug.'/'.$category_slug.'/{id}_{rewrite}'.$postfix_slug,
                     'keywords' => array(
                         'id'   =>   array('regexp' => '[0-9]+', 'param' => 'id'),
                         'rewrite'       =>   array('regexp' => '[_a-zA-Z0-9-\pL]*','param' => 'rewrite'),
@@ -309,7 +309,7 @@ class xipblog extends Module implements WidgetInterface
                 ),
                 'xipblog-tag-wid-module' => array(
                     'controller' =>  'archive',
-                    'rule' =>        $main_slug.'/'.$tag_slug.'/{rewrite}'.$postfix_slug,
+                    'rule' =>        $main_slug.'/'.$tag_slug.'/{id}_{rewrite}'.$postfix_slug,
                     'keywords' => array(
                         'id'   =>   array('regexp' => '[0-9]+', 'param' => 'id'),
                         'rewrite'       =>   array('regexp' => '[_a-zA-Z0-9-\pL]*','param' => 'rewrite'),
@@ -349,7 +349,7 @@ class xipblog extends Module implements WidgetInterface
                 ),
                 'xipblog-single-wid-module' => array(
                     'controller' =>  'single',
-                    'rule' =>        $main_slug.'/'.$single_slug.'/{rewrite}'.$postfix_slug,
+                    'rule' =>        $main_slug.'/'.$single_slug.'/{id}_{rewrite}'.$postfix_slug,
                     'keywords' => array(
                         'id' =>   array('regexp' => '[0-9]+','param' => 'id'),
                         'rewrite' =>   array('regexp' => '[_a-zA-Z0-9-\pL]*','param' => 'rewrite'),

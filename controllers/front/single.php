@@ -115,8 +115,10 @@ class xipblogSingleModuleFrontController extends xipblogMainModuleFrontControlle
     public function getBreadcrumbLinks()
     {
 
+        $id_lang = (int)$this->context->language->id;
+
         $breadcrumb = parent::getBreadcrumbLinks();
-        $blog_title = Configuration::get(xipblog::$xipblogshortname."meta_title");
+        $blog_title = Configuration::get(xipblog::$xipblogshortname."meta_title", $id_lang);
         $breadcrumb['links'][] = array(
             'title' => $blog_title,
             'url' => xipblog::XipBlogLink(),
