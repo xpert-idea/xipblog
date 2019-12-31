@@ -47,6 +47,10 @@
 									{* <i class="icon-user"></i> *}
 									<span>{l s='By' mod='xipblog'} {$xipblogpost.post_author_arr.firstname} {$xipblogpost.post_author_arr.lastname}</span>
 								</div>
+								<div class="post_meta_date">
+									{* <i class="icon-calendar"></i> *}
+									{$xipblogpost.post_date|date_format:"%b %dTH, %Y"}
+								</div>
 								<div class="meta_category">
 									{* <i class="icon-tag"></i> *}
 									<span>{l s='In' mod='xipblog'}</span>
@@ -66,12 +70,13 @@
 				</article>
 			</div>
 		</div>
+		{include file="module:xipblog/views/templates/front/default/custom-nav.tpl"}
 	</section>
 {if ($xipblogpost.comment_status == 'open') || ($xipblogpost.comment_status == 'close')}
 	{include file="module:xipblog/views/templates/front/default/comment-list.tpl"}
 {/if}
 {if (isset($disable_blog_com) && $disable_blog_com == 1) && ($xipblogpost.comment_status == 'open')}
-			{include file="module:xipblog/views/templates/front/default/comment.tpl"}
+	{include file="module:xipblog/views/templates/front/default/comment.tpl"}
 {/if}
 {/block}
 {block name="left_column"}

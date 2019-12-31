@@ -71,7 +71,7 @@ class AdminxippostController extends ModuleAdminController {
         $this->_group = 'GROUP BY a.id_xipposts';
         $this->_select = 'a.position position';
     }
-    public function setMedia()
+    public function setMedia($isNewTheme = false)
     {          
         parent::setMedia();
         $this->addJqueryUi('ui.widget');

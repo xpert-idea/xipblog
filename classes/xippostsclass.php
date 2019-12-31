@@ -104,12 +104,12 @@ class xippostsclass extends ObjectModel
     	$this->post_date = date("Y-m-d H:i:s");
     	$this->post_modified = date("Y-m-d H:i:s");
         if($this->position <= 0)
-            $this->position = self::getTopPosition() + 1;
-        if(isset($this->post_img) && !empty($this->post_img)){
-			$this->post_img = $this->post_img;
-        }else{
-        	$this->post_img = xipblog::UploadMedia('post_img');
-        }
+			$this->position = self::getTopPosition() + 1;
+
+		if (isset($_FILES['post_img']) && isset($_FILES['post_img']['tmp_name']) && !empty($_FILES['post_img']['tmp_name'])) {
+    		$this->post_img = xipblog::UploadMedia('post_img');
+    	}
+
         $tags = Tools::getValue("meta_tag");
         $tags_ids = self::GetCategoryTypeIds($tags);
         if(!parent::add($autodate, $null_values) || !Validate::isLoadedObject($this)){
