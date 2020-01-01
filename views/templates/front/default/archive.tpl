@@ -98,9 +98,9 @@
 	</div>
 	{/if}
 	</section>
+	{include file="module:xipblog/views/templates/front/default/pagination.tpl"}
 {/block}
-{include file="module:xipblog/views/templates/front/default/pagination.tpl"}
-{/block}
+
 {block name="left_column"}
 	{assign var="layout_column" value=$layout|replace:'layouts/':''|replace:'.tpl':''|strval}
 	{if ($layout_column == 'layout-left-column')}
