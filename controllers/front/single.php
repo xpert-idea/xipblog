@@ -56,7 +56,18 @@ class xipblogSingleModuleFrontController extends xipblogMainModuleFrontControlle
         }
         if(isset($this->id_identity) && !empty($this->id_identity)){
         	$xipblog_commets = xipcommentclass::getComments($this->id_identity);
-        	$this->context->smarty->assign('xipblog_commets',$xipblog_commets);
+            $this->context->smarty->assign('xipblog_commets',$xipblog_commets);
+            /* Add functionality custom button Previous Next and Back */
+            $idPostPrevieus = $this->id_identity-1;
+            $idPostNext = $this->id_identity+1;
+            if(xippostsclass::PostExists($idPostPrevieus,$this->page_type)){
+                $postPrevieus = xippostsclass::GetSinglePost($idPostPrevieus);
+                $this->context->smarty->assign('link_post_previeus',$postPrevieus['link']);
+            }
+            if(xippostsclass::PostExists($idPostNext,$this->page_type)){
+                $postNext = xippostsclass::GetSinglePost($idPostNext);
+                $this->context->smarty->assign('link_post_next',$postNext['link']);
+            }
     	}
         if(isset($this->xiperrors) && !empty($this->xiperrors)){
         	$this->context->smarty->assign('xiperrors',$this->xiperrors);
@@ -90,6 +101,7 @@ class xipblogSingleModuleFrontController extends xipblogMainModuleFrontControlle
         		$template = "single.tpl";
         	}
         }
+
         $this->setTemplate($template);
     }
     public function getLayout()
@@ -114,11 +126,10 @@ class xipblogSingleModuleFrontController extends xipblogMainModuleFrontControlle
     }
     public function getBreadcrumbLinks()
     {
-
         $id_lang = (int)$this->context->language->id;
 
         $breadcrumb = parent::getBreadcrumbLinks();
-        $blog_title = Configuration::get(xipblog::$xipblogshortname."meta_title", $id_lang);
+        $blog_title = Configuration::get(xipblog::$xipblogshortname."meta_title",$id_lang);
         $breadcrumb['links'][] = array(
             'title' => $blog_title,
             'url' => xipblog::XipBlogLink(),

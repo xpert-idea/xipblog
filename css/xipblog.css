@@ -374,12 +374,6 @@ Blog module
 .post_thumbnail {
     margin-bottom: 1.5rem;
 }
-#module-xipblog-single .form-control {
-    background: #fff;
-    color: #acaaa6;
-    border: none;
-    padding: .5rem 1rem;
-}
 .post_content {
     padding-top: 30px;
 }
@@ -392,10 +386,19 @@ Blog module
     margin-right: 70px;
 }
 
+.button_previeus {
+  display: inline-block;
+  float: left;
+}
 
+.button_next {
+  display: inline-block;
+  float: right;
+}
 
-
-
+.content_back{
+  padding-left: 10em;
+}
 
 /* 
 Blog module
