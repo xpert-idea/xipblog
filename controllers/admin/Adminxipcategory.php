@@ -64,7 +64,7 @@ class AdminxipcategoryController extends ModuleAdminController {
         $this->_where = ' AND a.category_type = "category" ';
         $this->_select = 'a.position position';
     }
-    public function setMedia()
+    public function setMedia($isNewTheme = false)
     {          
         parent::setMedia();
         $this->addJqueryUi('ui.widget');
