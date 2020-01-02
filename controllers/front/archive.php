@@ -13,7 +13,7 @@ class xipblogArchiveModuleFrontController extends xipblogMainModuleFrontControll
        	$this->rewrite = Tools::getValue('rewrite');
        	$subpage_type = Tools::getValue('subpage_type');
        	$p = Tools::getValue('page');
-		$this->p = isset($p) && !empty($p) ? intval($p) : 1;
+		$this->p = isset($p) && !empty($p) ? (int)($p) : 1;
 		$id_identity = Tools::getValue('id');
 		if(!isset($id_identity) || empty($id_identity)){
 			$this->id_identity = (int)xipcategoryclass::get_the_id($this->rewrite,$this->page_type);
@@ -147,7 +147,7 @@ class xipblogArchiveModuleFrontController extends xipblogMainModuleFrontControll
         $pagination
             ->setPage($this->p)
             ->setPagesCount(
-                intval(ceil($this->nbProducts / $this->n))
+                (int)ceil($this->nbProducts / $this->n)
             )
         ;
         $totalItems = $this->nbProducts;
@@ -167,15 +167,16 @@ class xipblogArchiveModuleFrontController extends xipblogMainModuleFrontControll
     }
     public function getBreadcrumbLinks()
     {
-        $id_lang = (int)$this->context->language->id;
-        
         $breadcrumb = parent::getBreadcrumbLinks();
+        $id_lang = (int)$this->context->language->id;
+
         $blog_title = Configuration::get(xipblog::$xipblogshortname."meta_title",$id_lang);
         $breadcrumb['links'][] = array(
             'title' => $blog_title,
             'url' => xipblog::XipBlogLink(),
         );
         
+
         if(isset($this->blogcategory->title[$id_lang]) && !empty($this->blogcategory->title[$id_lang])){
         	$category_name = $this->blogcategory->title[$id_lang];
         }elseif(isset($this->blogcategory->name[$id_lang]) && !empty($this->blogcategory->name[$id_lang])){
@@ -183,7 +184,7 @@ class xipblogArchiveModuleFrontController extends xipblogMainModuleFrontControll
         }else{
         	$category_name = '';
         }
-
+        
         if ($category_name != '') {
             $params = array();
             $params['id'] = $this->blogcategory->id_xipcategory ? $this->blogcategory->id_xipcategory : 0;
