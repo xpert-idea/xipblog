@@ -84,9 +84,7 @@ class xippostsclass extends ObjectModel
 			$xippostsclass = new xippostsclass($this->id);
 			$this->post_img = $xippostsclass->post_img;
 		}
-        if(!parent::update($null_values))
-            return false;
-        return true;
+        return parent::update($null_values);
     }
     public function add($autodate = true, $null_values = false)
     {
