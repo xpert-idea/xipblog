@@ -131,7 +131,7 @@ class AdminxippostController extends ModuleAdminController {
                         array(
                             'id' => 'standrad',
                             'value' => 'standrad',
-                            'label' => $this->l('Standrad' )
+                            'label' => $this->l('Standard' )
                         ),
                         array(
                             'id' => 'gallery',
@@ -202,7 +202,7 @@ class AdminxippostController extends ModuleAdminController {
                     'type' => 'tags',
                     'label' => $this->l('Meta Tag' ),
                     'name' => 'meta_tag',
-                    'desc' => $this->l('Enter Your Post Meta Tag. Seperate by comma(,)' ),
+                    'desc' => $this->l('Enter Your Post Meta Tag. Separate by comma(,)' ),
                 ),
                 array(
                     'type' => 'textarea',
@@ -215,7 +215,7 @@ class AdminxippostController extends ModuleAdminController {
                     'type' => 'tags',
                     'label' => $this->l('Meta Keyword' ),
                     'name' => 'meta_keyword',
-                    'desc' => $this->l('Enter Your Post Meta Keyword for SEO. Seperate by comma(,)' ),
+                    'desc' => $this->l('Enter Your Post Meta Keyword for SEO. Separate by comma(,)' ),
                     'lang' => true,
                 ),
                 array(
@@ -232,7 +232,7 @@ class AdminxippostController extends ModuleAdminController {
                     'defaults' => $gallery_temp,
                     'defaults_str' => $gallery_temp_str,
                     'url' => xipblog_img_uri,
-                    'desc' => $this->l('Please give Image url for Gallery post. seperate by comma(,). You can add Any Kind of Image URL.' ),
+                    'desc' => $this->l('Please give Image url for Gallery post. Separate by comma(,). You can add Any Kind of Image URL.' ),
                 ),
                 array(
                     // 'type' => 'textarea',
@@ -240,7 +240,7 @@ class AdminxippostController extends ModuleAdminController {
                     'label' => $this->l('Video' ),
                     'name' => 'video_temp',
                     'defaults' => $video_temp,
-                    'desc' => $this->l('Please give video irame url for video post. seperate by comma(,). You can add youtube or vimeo video url.' ),
+                    'desc' => $this->l('Please give video iframe url for video post. Separate by comma(,). You can add youtube or vimeo video url.' ),
                 ),
                 array(
                     // 'type' => 'textarea',
@@ -248,7 +248,7 @@ class AdminxippostController extends ModuleAdminController {
                     'label' => $this->l('Audio' ),
                     'name' => 'audio_temp',
                     'defaults' => $audio_temp,
-                    'desc' => $this->l('Please give Audio url for Audio post. seperate by comma(,). You can add any kind of anudio sourch.' ),
+                    'desc' => $this->l('Please give Audio url for Audio post. Separate by comma(,). You can add any kind of an audio source.' ),
                 ),
                 array(
                     'type' => 'select',
