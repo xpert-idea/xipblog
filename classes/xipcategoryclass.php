@@ -121,7 +121,7 @@ class xipcategoryclass extends ObjectModel
 		$id_lang = (int)Context::getContext()->language->id;
 		$id_shop = (int)Context::getContext()->shop->id;
 		$sql = 'SELECT xc.`id_xipcategory`,xcl.`name`,xcl.`link_rewrite` FROM `'._DB_PREFIX_.'xipcategory` xc INNER JOIN `'._DB_PREFIX_.'xipcategory_lang` xcl ON (xc.`id_xipcategory` = xcl.`id_xipcategory` AND xcl.`id_lang` = '.$id_lang.') INNER JOIN `'._DB_PREFIX_.'xipcategory_shop` xcs ON (xc.`id_xipcategory` = xcs.`id_xipcategory` AND xcs.`id_shop` = '.$id_shop.') ';
-		$sql .= ' WHERE xc.`category_type` = "'.($category_type ? $category_type : 'category').'" AND xc.`id_xipcategory` = '.$id_category;
+		$sql .= ' WHERE xc.`category_type` = "'.($category_type ? pSQL($category_type) : 'category').'" AND xc.`id_xipcategory` = '.$id_category;
 		$rslts = Db::getInstance()->getrow($sql);
 			return $rslts;
     }
@@ -132,7 +132,7 @@ class xipcategoryclass extends ObjectModel
 		$id_lang = (int)Context::getContext()->language->id;
 		$id_shop = (int)Context::getContext()->shop->id;
 		$sql = 'SELECT xc.`id_xipcategory` FROM `'._DB_PREFIX_.'xipcategory` xc INNER JOIN `'._DB_PREFIX_.'xipcategory_lang` xcl ON (xc.`id_xipcategory` = xcl.`id_xipcategory` AND xcl.`id_lang` = '.$id_lang.') INNER JOIN `'._DB_PREFIX_.'xipcategory_shop` xcs ON (xc.`id_xipcategory` = xcs.`id_xipcategory` AND xcs.`id_shop` = '.$id_shop.') ';
-		$sql .= ' WHERE xc.`category_type` = "'.($category_type ? $category_type : 'category').'" AND xcl.`link_rewrite` = "'.$rewrite.'" ';
+		$sql .= ' WHERE xc.`category_type` = "'.($category_type ? pSQL($category_type) : 'category').'" AND xcl.`link_rewrite` = "'.pSQL($rewrite).'" ';
 		$rslts = Db::getInstance()->getrow($sql);
 			return isset($rslts['id_xipcategory']) ? $rslts['id_xipcategory'] : NULL;
     }
@@ -144,9 +144,9 @@ class xipcategoryclass extends ObjectModel
                INNER JOIN `'._DB_PREFIX_.'xipcategory_lang` xcl ON (xc.`id_xipcategory` = xcl.`id_xipcategory` AND xcl.`id_lang` = '.$id_lang.')
                INNER JOIN `'._DB_PREFIX_.'xipcategory_shop` xcs ON (xc.`id_xipcategory` = xcs.`id_xipcategory` AND xcs.`id_shop` = '.$id_shop.')
                ';
-       $sql .= ' WHERE xc.`active` = 1 AND  category_type = "'.$category_type.'" ';
+       $sql .= ' WHERE xc.`active` = 1 AND  category_type = "'.pSQL($category_type).'" ';
 		if($category_group != NULL){
-			$sql .= ' AND category_group = '.$category_group;
+			$sql .= ' AND category_group = "'.pSQL($category_type).'" ';
 		}
        $sql .= ' ORDER BY xc.`position` ASC ';
        return Db::getInstance()->executeS($sql);
