@@ -239,7 +239,7 @@ class xippostsclass extends ObjectModel
     		self::DeleteTagPost($id_post);
     		if(isset($category_ids) && !empty($category_ids)){
     			foreach ($category_ids as $id_category){
-    				$queryval .= '('.(int)$id_post.','.(int)$id_category.',"'.$tag.'"),';
+    				$queryval .= '('.(int)$id_post.','.(int)$id_category.',"'.pSQL($tag).'"),';
     			}
     			$queryval = rtrim($queryval, ',');
     			if(Db::getInstance()->execute('INSERT INTO `'._DB_PREFIX_.'xip_category_post`(`id_post`, `id_category`,`type`) VALUES '.$queryval)){
@@ -270,7 +270,7 @@ class xippostsclass extends ObjectModel
 		INNER JOIN `'._DB_PREFIX_.'xipposts_lang` xcl ON (xc.`id_xipposts` = xcl.`id_xipposts` AND xcl.`id_lang` = '.$id_lang.')
 		INNER JOIN `'._DB_PREFIX_.'xipposts_shop` xcs ON (xc.`id_xipposts` = xcs.`id_xipposts` AND xcs.`id_shop` = '.$id_shop.')
 		';
-       $sql .= ' WHERE xc.`post_type` = "'.($post_type?$post_type:'post').'" AND xc.`id_xipposts` = '.$id_post;
+       $sql .= ' WHERE xc.`post_type` = "'.($post_type?pSQL($post_type):'post').'" AND xc.`id_xipposts` = '.$id_post;
        $rslts = Db::getInstance()->getrow($sql);
        		return $rslts;
     }
@@ -281,7 +281,7 @@ class xippostsclass extends ObjectModel
 		$id_lang = (int)Context::getContext()->language->id;
 		$id_shop = (int)Context::getContext()->shop->id;
 		$sql = 'SELECT xc.`id_xipposts` FROM `'._DB_PREFIX_.'xipposts` xc INNER JOIN `'._DB_PREFIX_.'xipposts_lang` xcl ON (xc.`id_xipposts` = xcl.`id_xipposts` AND xcl.`id_lang` = '.$id_lang.') INNER JOIN `'._DB_PREFIX_.'xipposts_shop` xcs ON (xc.`id_xipposts` = xcs.`id_xipposts` AND xcs.`id_shop` = '.$id_shop.') ';
-		$sql .= ' WHERE xc.`post_type` = "'.($post_type ? $post_type : 'post').'" AND xcl.`link_rewrite` = "'.$rewrite.'" ';
+		$sql .= ' WHERE xc.`post_type` = "'.($post_type ? pSQL($post_type) : 'post').'" AND xcl.`link_rewrite` = "'.pSQL($rewrite).'" ';
 		$rslts = Db::getInstance()->getrow($sql);
 			return isset($rslts['id_xipposts']) ? $rslts['id_xipposts'] : NULL;
     }
@@ -314,7 +314,7 @@ class xippostsclass extends ObjectModel
 		INNER JOIN `'._DB_PREFIX_.'xipcategory_lang` xcl ON (xc.`id_xipcategory` = xcl.`id_xipcategory` AND xcl.`id_lang` = '.$id_lang.')
 		INNER JOIN `'._DB_PREFIX_.'xipcategory_shop` xcs ON (xc.`id_xipcategory` = xcs.`id_xipcategory` AND xcs.`id_shop` = '.$id_shop.')
 		';
-       $sql .= ' WHERE xc.`category_type` = "'.($category_type ? $category_type : 'category').'" AND xc.`id_xipcategory` = '.$id_category;
+       $sql .= ' WHERE xc.`category_type` = "'.($category_type ? pSQL($category_type) : 'category').'" AND xc.`id_xipcategory` = '.$id_category;
        $rslts = Db::getInstance()->getrow($sql);
        		return $rslts;
     }
@@ -329,7 +329,7 @@ class xippostsclass extends ObjectModel
 		INNER JOIN `'._DB_PREFIX_.'xipcategory_lang` xcl ON (xc.`id_xipcategory` = xcl.`id_xipcategory` AND xcl.`id_lang` = '.$id_lang.')
 		INNER JOIN `'._DB_PREFIX_.'xipcategory_shop` xcs ON (xc.`id_xipcategory` = xcs.`id_xipcategory` AND xcs.`id_shop` = '.$id_shop.')
 		';
-       $sql .= ' WHERE xc.`category_type` = "tag" AND xcl.`name` = "'.$tag.'"';
+       $sql .= ' WHERE xc.`category_type` = "tag" AND xcl.`name` = "'.pSQL($tag).'"';
        $rslts = Db::getInstance()->getrow($sql);
        if(isset($rslts) && !empty($rslts)){
        		return $rslts['id_xipcategory'];
@@ -360,11 +360,11 @@ class xippostsclass extends ObjectModel
 		$id_lang = (int)Context::getContext()->language->id;
 		$id_shop = (int)Context::getContext()->shop->id;
        $sql = 'SELECT xcl.`name` FROM `'._DB_PREFIX_.'xip_category_post` xcp 
-		INNER JOIN `'._DB_PREFIX_.'xipcategory` xc ON (xcp.`id_category` = xc.`id_xipcategory` AND xc.`category_type` = "'.$tag.'")
+		INNER JOIN `'._DB_PREFIX_.'xipcategory` xc ON (xcp.`id_category` = xc.`id_xipcategory` AND xc.`category_type` = "'.pSQL($tag).'")
 		INNER JOIN `'._DB_PREFIX_.'xipcategory_lang` xcl ON (xcp.`id_category` = xcl.`id_xipcategory` AND xcl.`id_lang` = '.$id_shop.')
 		INNER JOIN `'._DB_PREFIX_.'xipcategory_shop` xcs ON (xcp.`id_category` = xcs.`id_xipcategory` AND xcs.`id_shop` = '.$id_shop.')
 		';
-       $sql .= ' WHERE xcp.`id_post` = '.$id_post.' AND xcp.`type` = "'.$tag.'"';
+       $sql .= ' WHERE xcp.`id_post` = '.$id_post.' AND xcp.`type` = "'.pSQL($tag).'"';
        $rslts = Db::getInstance()->executeS($sql);
        if(isset($rslts) && !empty($rslts)){
        	$countrslts = count($rslts);
@@ -388,11 +388,11 @@ class xippostsclass extends ObjectModel
 		$id_lang = (int)Context::getContext()->language->id;
 		$id_shop = (int)Context::getContext()->shop->id;
        $sql = 'SELECT xcp.`id_category`,xcl.`name`,xcl.`link_rewrite` FROM `'._DB_PREFIX_.'xip_category_post` xcp 
-		INNER JOIN `'._DB_PREFIX_.'xipcategory` xc ON (xcp.`id_category` = xc.`id_xipcategory` AND xc.`category_type` = "'.$tag.'")
+		INNER JOIN `'._DB_PREFIX_.'xipcategory` xc ON (xcp.`id_category` = xc.`id_xipcategory` AND xc.`category_type` = "'.pSQL($tag).'")
 		INNER JOIN `'._DB_PREFIX_.'xipcategory_lang` xcl ON (xcp.`id_category` = xcl.`id_xipcategory` AND xcl.`id_lang` = '.$id_shop.')
 		INNER JOIN `'._DB_PREFIX_.'xipcategory_shop` xcs ON (xcp.`id_category` = xcs.`id_xipcategory` AND xcs.`id_shop` = '.$id_shop.')
 		';
-       $sql .= ' WHERE xcp.`id_post` = '.$id_post.' AND xcp.`type` = "'.$tag.'"';
+       $sql .= ' WHERE xcp.`id_post` = '.$id_post.' AND xcp.`type` = "'.pSQL($tag).'"';
        $rslts = Db::getInstance()->executeS($sql);
        if(isset($rslts) && !empty($rslts)){
        		$i = 0;
@@ -419,7 +419,7 @@ class xippostsclass extends ObjectModel
 		INNER JOIN `'._DB_PREFIX_.'xipcategory_lang` xcl ON (xc.`id_xipcategory` = xcl.`id_xipcategory` AND xcl.`id_lang` = '.$id_lang.')
 		INNER JOIN `'._DB_PREFIX_.'xipcategory_shop` xcs ON (xc.`id_xipcategory` = xcs.`id_xipcategory` AND xcs.`id_shop` = '.$id_shop.')
 		';
-		$sql .= ' WHERE xc.`category_type` = "'.$tag.'" ';
+		$sql .= ' WHERE xc.`category_type` = "'.pSQL($tag).'" ';
 		$sql .= ' ORDER BY xc.`id_xipcategory` DESC ';
 		$sql .= ' LIMIT '.(int)$count;
 		$rslts = Db::getInstance()->executeS($sql);
@@ -442,12 +442,13 @@ class xippostsclass extends ObjectModel
     public static function GetCategoryPostsCount($category_default = NULL,$post_type = 'post'){
 		$id_lang = (int)Context::getContext()->language->id;
 		$id_shop = (int)Context::getContext()->shop->id;
+		$category_default = (int)$category_default;
 		$sql = 'SELECT count(xc.`id_xipposts`) as allxipposts FROM `'._DB_PREFIX_.'xipposts` xc 
 		INNER JOIN `'._DB_PREFIX_.'xipposts_lang` xcl ON (xc.`id_xipposts` = xcl.`id_xipposts` AND xcl.`id_lang` = '.$id_lang.')
 		INNER JOIN `'._DB_PREFIX_.'xipposts_shop` xcs ON (xc.`id_xipposts` = xcs.`id_xipposts` AND xcs.`id_shop` = '.$id_shop.')
 		';
 		$sql .= ' WHERE xc.`active` = 1 ';
-		if((int)$category_default != 0){
+		if($category_default != 0){
 			$sql .= ' AND xc.category_default = '.$category_default;
 		}
 		if($post_type != NULL){
@@ -466,13 +467,14 @@ class xippostsclass extends ObjectModel
 		$results = array();
 		$id_lang = (int)Context::getContext()->language->id;
 		$id_shop = (int)Context::getContext()->shop->id;
+		$category_default = (int)$category_default;
 		$GetAllImageTypes = xipimagetypeclass::GetAllImageTypes();
 		$sql = 'SELECT * FROM `'._DB_PREFIX_.'xipposts` xc 
 		INNER JOIN `'._DB_PREFIX_.'xipposts_lang` xcl ON (xc.`id_xipposts` = xcl.`id_xipposts` AND xcl.`id_lang` = '.$id_lang.')
 		INNER JOIN `'._DB_PREFIX_.'xipposts_shop` xcs ON (xc.`id_xipposts` = xcs.`id_xipposts` AND xcs.`id_shop` = '.$id_shop.')
 		';
 		$sql .= ' WHERE xc.`active` = 1 ';
-		if((int)$category_default != 0){
+		if($category_default != 0){
 			$sql .= ' AND xc.category_default = '.$category_default;
 		}
 		if($post_type != NULL){
@@ -559,7 +561,7 @@ class xippostsclass extends ObjectModel
 		';
 		$sql .= ' WHERE xc.`active` = 1 ';
 		if($post_type != NULL){
-			$sql .= ' AND xc.post_type = "'.$post_type.'" ';
+			$sql .= ' AND xc.post_type = "'.pSQL($post_type).'" ';
 		}
 		$sql .= ' ORDER BY xc.`comment_count` '.$order_by;
 		$sql .= ' LIMIT '.(int)$count;
@@ -642,7 +644,7 @@ class xippostsclass extends ObjectModel
 		';
 		$sql .= ' WHERE xc.`active` = 1 ';
 		if($post_type != NULL){
-			$sql .= ' AND xc.post_type = "'.$post_type.'" ';
+			$sql .= ' AND xc.post_type = "'.pSQL($post_type).'" ';
 		}
 		$sql .= ' ORDER BY xc.`id_xipposts` '.$order_by;
 		$sql .= ' LIMIT '.(int)$count;
@@ -727,7 +729,7 @@ class xippostsclass extends ObjectModel
     public static function PostCountUpdate($id = NULL){
     	if($id == NULL || $id == 0)
     		return false;
-	    $sql = 'UPDATE '._DB_PREFIX_.'xipposts as xc SET xc.comment_count = (xc.comment_count+1) where xc.id_xipposts = '.$id;
+	    $sql = 'UPDATE '._DB_PREFIX_.'xipposts as xc SET xc.comment_count = (xc.comment_count+1) where xc.id_xipposts = '.(int)$id;
 		if(Db::getInstance()->execute($sql))
 			return true;
 		else
@@ -745,7 +747,7 @@ class xippostsclass extends ObjectModel
                INNER JOIN `'._DB_PREFIX_.'xipposts_lang` xcl ON (xc.`id_xipposts` = xcl.`id_xipposts` AND xcl.`id_lang` = '.$id_lang.')
                INNER JOIN `'._DB_PREFIX_.'xipposts_shop` xcs ON (xc.`id_xipposts` = xcs.`id_xipposts` AND xcs.`id_shop` = '.$id_shop.')
                ';
-       $sql .= ' WHERE xc.`active` = 1 AND xc.post_type = "'.$post_type.'" AND xc.id_xipposts = '.(int)$id_post;
+       $sql .= ' WHERE xc.`active` = 1 AND xc.post_type = "'.pSQL($post_type).'" AND xc.id_xipposts = '.(int)$id_post;
        $queryexec = Db::getInstance()->getrow($sql);
        if(isset($queryexec) && !empty($queryexec)){
        		foreach ($queryexec as $qkey => $qvalue) {
@@ -827,7 +829,7 @@ class xippostsclass extends ObjectModel
 		';
 		$sql .= ' WHERE xc.`active` = 1 ';
 		if($post_type != NULL){
-			$sql .= ' AND xc.post_type = "'.$post_type.'" ';
+			$sql .= ' AND xc.post_type = "'.pSQL($post_type).'" ';
 		}
 		$sql .= ' ORDER BY xc.`position`  '.$order_by;
 		$sql .= ' LIMIT '.(((int)$p - 1) * (int)$n).','.(int)$n;
